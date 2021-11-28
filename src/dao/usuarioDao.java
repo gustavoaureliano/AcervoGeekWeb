@@ -13,19 +13,32 @@ import model.Usuario;
 public class usuarioDao {
 	
 	
-	public void cadastro(Usuario usuario) {
+	public int cadastro(Usuario usuario) {
 		
-		try(Connection conn = ConnectionFactory.conectar(); CallableStatement stm = (CallableStatement) conn.prepareCall("{call usp_cadastro(?, ?, ?, ?)}")){
+		try(Connection conn = ConnectionFactory.conectar(); CallableStatement stm = (CallableStatement) conn.prepareCall("{call usp_cadastrarUsuario(?, ?, ?, ?)}")){
 			stm.setString(1, usuario.getUsuario());
 			stm.setString(2, usuario.getNome());
 			stm.setString(3, usuario.getSenha());
 			stm.setObject(4, usuario.getFoto());
 			
 			stm.execute();
+			
+			String sqlQuery = "select last_insert_id()";
+			try(
+					PreparedStatement stm2 = conn.prepareStatement(sqlQuery);
+					ResultSet rs = stm2.executeQuery();
+				) {
+				if(rs.next()) {
+					usuario.setIdUsuario(rs.getInt(1));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		return usuario.getIdUsuario();
 	}
 	
 	
@@ -68,6 +81,32 @@ public class usuarioDao {
 		try (Connection conn = ConnectionFactory.conectar();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);){
 			stm.setInt(1, usuario.getIdUsuario());
+			try (ResultSet rs = stm.executeQuery();){
+				if (rs.next()) {
+					usuario.setIdUsuario(rs.getInt(1));
+					usuario.setUsuario(rs.getString(2));
+					usuario.setNome(rs.getString(3));
+					usuario.setSenha(rs.getString(4));
+					usuario.setFoto(rs.getBinaryStream(5));
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		
+		return usuario;
+	}
+	
+	public Usuario buscarLogin(Usuario usuario) {
+		String sqlSelect = "SELECT * FROM usuario WHERE usuario.usuario = ?";
+		
+		try (Connection conn = ConnectionFactory.conectar();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);){
+			stm.setString(1, usuario.getUsuario());
 			try (ResultSet rs = stm.executeQuery();){
 				if (rs.next()) {
 					usuario.setIdUsuario(rs.getInt(1));

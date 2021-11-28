@@ -9,8 +9,8 @@ public class UsuarioService {
 	
 	usuarioDao usuariod = new usuarioDao();
 	
-	public void cadastro(Usuario usuario) {
-		usuariod.cadastro(usuario);
+	public int cadastro(Usuario usuario) {
+		return usuariod.cadastro(usuario);
 	}
 	
 	
@@ -28,6 +28,9 @@ public class UsuarioService {
 		return usuariod.buscar(usuario);
 	}
 	
+	public Usuario buscarLogin(Usuario usuario) {
+		return usuariod.buscarLogin(usuario);
+	}
 	
 	public ArrayList<Usuario> buscarUsuarios() {
 		return usuariod.buscarUsuarios();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dao.colecaoDao;
 import model.Colecao;
+import model.Usuario;
 
 public class ColecaoService {
 	
@@ -29,12 +30,12 @@ public class ColecaoService {
 	}
 	
 	
-	public ArrayList<Colecao> buscarColecao() {
-		return colecaod.buscarColecao();
+	public ArrayList<Colecao> buscarColecao(Usuario usuario) {
+		return colecaod.buscarColecao(usuario);
 	}
 	
 	
-	public ArrayList<Colecao> buscarColecao(String chave) {
-		return colecaod.buscarColecao(chave);
+	public ArrayList<Colecao> buscarColecao(Usuario usuario, String chave) {
+		return colecaod.buscarColecao(usuario, chave);
     }
 }
