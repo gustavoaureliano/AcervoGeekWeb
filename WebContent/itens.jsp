@@ -57,12 +57,12 @@
                         <a href="addItem.jsp">
                             <div class="container row opcao">
                                 <img src="imagens/btnAdd.png" alt="">
-                                <h3>Adicionar coleção</h2>
+                                <h3>Adicionar item</h2>
                             </div>
                         </a>
                         <div class="container row opcao alt">
                             <img src="imagens/btnAlterar.png" alt="">
-                            <h3>Alterar coleção</h2>
+                            <h3>Alterar item</h2>
                         </div>
                         <a href="sobre.jsp">
 	                        <div class="container row opcao">
@@ -79,6 +79,23 @@
                         <div class="container">
                             <h3>Ultima Alteração</h3>
                             <p>${colecao.data_alteracao}</p>
+                        </div>
+                    </div>
+                    <div class="container">
+                    	<div class="container row sobreDesc">
+                            <img src="imagens/btnDescColecao.png" alt="">
+                            <h3>${colecao.nome}</h2>
+                        </div>
+                    	<div class="desc">
+                        	<div class="aba">
+                        		<div class="container row btnClose">
+                        			<p>Descrição</p>
+                                	<button class="btn">X</button>
+                        		</div>
+                        		<div class="container">
+                                	<p>${colecao.descricao}</p>
+                        		</div>
+                        	</div>
                         </div>
                     </div>
                 </nav>

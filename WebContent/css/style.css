@@ -250,6 +250,14 @@ input[type=submit], .formulario .btn {
     font-size: 30px;
 }
 
+.sobreDesc {
+    cursor: pointer;
+}
+
+.sobreDesc img {
+    width: 32px;
+}
+
 .perfil img {
     width: 100%;
     max-width: 300px;
