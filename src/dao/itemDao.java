@@ -20,7 +20,7 @@ public class itemDao {
 		
 		try(Connection conn = ConnectionFactory.conectar(); PreparedStatement stm = conn.prepareStatement(sqlInsert);){
 			stm.setInt(1, item.getIdColecao());
-			if(item.getIdCategoria() > 0) {
+			if (item.getIdCategoria() > 0) {
 				stm.setInt(2, item.getIdCategoria());				
 			} else {
 				stm.setNull(2, 0);
@@ -53,7 +53,10 @@ public class itemDao {
 	public void atualizarItem(Item item) {
 		
 		try(Connection conn = ConnectionFactory.conectar(); CallableStatement stm = (CallableStatement) conn.prepareCall("{call usp_atualizarItem(?, ?, ?, ?, ?)}")){
-			stm.setInt(1, item.getIdCategoria());
+			if (item.getIdCategoria() > 0)
+				stm.setInt(1, item.getIdCategoria());				
+			else
+				stm.setNull(1, 0);
 			stm.setString(2, item.getNome());
 			stm.setString(3, item.getDescricao());
 			stm.setObject(4, item.getImagem());

@@ -28,7 +28,7 @@
                     <form id="searchBox" class="searchBox" action="controller.do" method="post">
                             <input class="inputText" type="search" name="chave" id="chave">
                             <label class="btnSearch" for="search"></label>
-                            <input type="hidden" name="opcao" value="colecoes">
+                            <input type="hidden" name="opcao" value="colecao">
                             <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
                         	<button id="search" type="submit" name="command" value="Listar"> Pesquisar </button>
                     </form>

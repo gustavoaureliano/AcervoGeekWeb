@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Editar Coleção - ACERVO GEEK</title>
+        <title>Adicionar Categoria - ACERVO GEEK</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
                     </a>
                 </div>
                 <div class="container espacamento">
-                    <h1>Editar Coleção</h1>
+                    <h1>Adicionar Categoria</h1>
                 </div>
                 <div class="espacamento"></div>
                 <div class="container">
@@ -40,22 +40,13 @@
                     <form action="controller.do" enctype="multipart/form-data" method="post">
                         <div class="container">
                             <label for="nome">Nome</label>
-                            <input class="inputText" type="text" name="nome" id="nome" value="${colecao.nome}">
-                        </div>
-                        <div class="container">
-                            <img  class="imgFile" src="controller.do?command=ExibirImagem&opcao=colecao&id=${colecao.idColecao}" alt="">
-                            <label class="btn" for="imagem">Escolher Imagem</label>
-                            <input type="file" name="imagem" id="imagem">
-                        </div>
-                        <div class="container">
-                            <label for="descricao">Descrição</label>
-                            <textarea name="descricao" id="descricao">${colecao.descricao}</textarea>
+                            <input class="inputText" type="text" name="nome" id="nome">
                         </div>
                         <div class="container row">
-                            <input type="hidden" name="opcao" value="colecao">
-                            <input type="hidden" name="id" value="${colecao.idColecao}">
+                            <input type="hidden" name="opcao" value="categoria">
+                            <input type="hidden" name="pagina" value="${pagina}">                            
                             <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
-                        	<button class="btn" type="submit" name="command" value="Editar"> Salvar </button>
+                        	<button class="btn" type="submit" name="command" value="Adicionar"> Adicionar </button>
                         </div>
                     </form>
                 </div>

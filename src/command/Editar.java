@@ -7,7 +7,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.smartcardio.ATR;
 
 import model.Categoria;
 import model.Colecao;
@@ -25,6 +27,7 @@ public class Editar implements Command {
 			throws ServletException, IOException {
 		
 		String opcao = request.getParameter("opcao");
+		String pagina = request.getParameter("pagina");
 		String nome = request.getParameter("nome");
 		String usuario = request.getParameter("usuario");
 		String senha = request.getParameter("senha");
@@ -33,6 +36,7 @@ public class Editar implements Command {
 		String sId = request.getParameter("id");
 		String sIdCategoria = request.getParameter("categoria");
 		String sIdUsuario = request.getParameter("idUsuario");
+		String sIdColecao = request.getParameter("idColecao");
 		
 		int id = -1;
 		
@@ -58,6 +62,21 @@ public class Editar implements Command {
 			System.out.println(e.getMessage());
 		}
 		
+		int idColecao = -1;
+		
+		try {
+			idColecao = Integer.parseInt(sIdColecao);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		Usuario user = new Usuario();
+		user.setIdUsuario(idUsuario);
+		UsuarioService userService = new UsuarioService();
+		user = userService.buscar(user);
+		
+		String rd = "controller.do?command=Listar&idUsuario=" + user.getIdUsuario();
+		
 		switch (opcao) {
 		case "colecao":
 			Colecao colecao = new Colecao();
@@ -75,24 +94,24 @@ public class Editar implements Command {
 			break;
 		case "item":
 			Item item = new Item();
-			item.setIdCategoria(id);
+			item.setIdItem(id);
 			ItemService itemService = new ItemService();
 			item = itemService.buscar(item);
 			item.setNome(nome);
 			item.setDescricao(descricao);
-			item.setImagem(filePart.getInputStream());
+			
+			if (filePart.getSize() > 0) {
+				item.setImagem(filePart.getInputStream());
+			}
+			
 			item.setIdCategoria(idCategoria);
 			itemService.atualizarItem(item);
 			break;
 		case "usuario":
-			Usuario user = new Usuario();
-			user.setIdUsuario(idUsuario);
-			UsuarioService userService = new UsuarioService();
-			user = userService.buscar(user);
 			user.setNome(nome);
 			user.setUsuario(usuario);
 			
-			if(senha.length() > 0) {
+			if(senha != null && senha.length() > 0) {
 				user.setSenha(senha);				
 			}
 			
@@ -101,6 +120,7 @@ public class Editar implements Command {
 			}
 			
 			userService.atualizarUsuario(user);
+			opcao = pagina;
 			break;
 		case "categoria":
 			Categoria categoria = new Categoria();
@@ -114,12 +134,12 @@ public class Editar implements Command {
 			break;
 		}
 		
+		rd += "&opcao=" + opcao;
+		rd += "&idColecao=" + idColecao;
+		
 		System.out.println("idUsuario: " + idUsuario);
 		
-		Usuario user = new Usuario();
-		user.setIdUsuario(idUsuario);
-		
-		String rd = "controller.do?command=Listar&opcao=colecoes&idUsuario=" + user.getIdUsuario();
+		System.out.println(rd);
 		
 		RequestDispatcher view = request.getRequestDispatcher(rd);
 		view.forward(request, response);

@@ -33,7 +33,7 @@ public class Login implements Command {
 		if(status) {
 			user = userService.buscarLogin(user);
 			
-			String rd = "controller.do?command=Listar&opcao=colecoes&idUsuario=" + user.getIdUsuario();
+			String rd = "controller.do?command=Listar&opcao=colecao&idUsuario=" + user.getIdUsuario();
 			
 			RequestDispatcher view = request.getRequestDispatcher(rd);
 			view.forward(request, response);

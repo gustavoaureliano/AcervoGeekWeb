@@ -15,6 +15,7 @@ import model.Categoria;
 import model.Colecao;
 import model.Item;
 import model.Usuario;
+import service.CategoriaService;
 import service.ColecaoService;
 import service.ItemService;
 import service.UsuarioService;
@@ -57,13 +58,16 @@ public class Adicionar implements Command {
 			System.out.println(e.getMessage());
 		}
 		
-		String rd = null;
 		
 
 		System.out.println("idUsuario: " + idUsuario);
 		
 		Usuario user = new Usuario();
 		user.setIdUsuario(idUsuario);
+		
+		String rd = "controller.do?command=Listar&opcao=" + opcao + "&idUsuario=" + user.getIdUsuario();
+		
+		System.out.println("opção: " + opcao);
 		
 		switch (opcao) {
 		case "colecao":
@@ -74,13 +78,14 @@ public class Adicionar implements Command {
 			colecao.setImagem(filePart.getInputStream());
 			ColecaoService colecaoService = new ColecaoService();
 			colecaoService.incluir(colecao);
-			rd = "controller.do?command=Listar&opcao=colecoes&idUsuario=" + user.getIdUsuario();
+			//rd = "controller.do?command=Listar&opcao=colecoes&idUsuario=" + user.getIdUsuario();
 			break;
 		case "item":
 			Item item = new Item();
 			item.setIdColecao(id);
 			
-			System.out.print("idCategoria: " + idCategoria);
+			System.out.println("idColecao: " + id);
+			System.out.println("idCategoria: " + idCategoria);
 			if(idCategoria == 0) {
 				System.out.print("Cat é 0: " + idCategoria);
 			}
@@ -90,18 +95,15 @@ public class Adicionar implements Command {
 			item.setImagem(filePart.getInputStream());
 			ItemService itemService = new ItemService();
 			itemService.incluir(item);
-			rd = "controller.do?command=Listar&opcao=itens&idColecao="+id+"&idUsuario=" + user.getIdUsuario();
-			break;
-		case "categoria":
-			Categoria categoria = new Categoria();
-			categoria.setIdColecao(id);
-			categoria.setNome(nome);
+			rd += "&idColecao=" + id;
+			System.out.println();
+			//rd = "controller.do?command=Listar&opcao=itens&idColecao="+id+"&idUsuario=" + user.getIdUsuario();
 			break;
 		default:
 			break;
 		}
 		
-		
+		System.out.println(rd);
 		RequestDispatcher view = request.getRequestDispatcher(rd);
 		view.forward(request, response);
 

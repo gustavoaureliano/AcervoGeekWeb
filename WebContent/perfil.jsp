@@ -41,7 +41,7 @@
             </header>
             <div class="card">
                 <div class="espacamento"></div>
-                <div class="perfil">
+                <div class="container perfil">
                     <form action="controller.do" enctype="multipart/form-data" method="post">
                         <div class="container">
                             <img class="imgFile" src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
@@ -63,7 +63,10 @@
                         <div class="container">
                         	<input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
                         	<input type="hidden" name="opcao" value="usuario">
+                        	<input type="hidden" name="pagina" value="${pagina}">                        	
+                        	<input type="hidden" name="idColecao" value="${colecao.idColecao}">
                             <button class="btn" type="submit" name="command" value="Editar"> Salvar </button>
+                    		<a class="small" href="login.jsp">Sair</a>
                         </div>
                     </form>
                 </div>

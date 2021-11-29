@@ -17,7 +17,7 @@
             <header>
                 <div class="espacamento"></div>
                 <div class="container espacamento">
-                    <a href="colecoes.html">
+                    <a href="colecoes.jsp">
                         <img src="imagens/logo.png" alt="">
                     </a>
                 </div>
@@ -29,21 +29,24 @@
                     <form id="searchBox" class="searchBox" action="controller.do" method="post">
                             <input class="inputText" type="search" name="chave" id="chave">
                             <label class="btnSearch" for="search"></label>
-                            <input id="search" type="submit" value="Pesquisar">
+                            <input type="hidden" name="opcao" value="item">
+                            <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
+                            <input type="hidden" name="idColecao" value="${colecao.idColecao}">
+                        	<button id="search" type="submit" name="command" value="Listar"> Pesquisar </button>
                             <select class="categorias" name="categoria" id="categoria" form="searchBox">
-                                <option value="">Nenhuma</option>
-                                <option value="cat1">cat1</option>
-                                <option value="cat2">cat2</option>
-                                <option value="cat3">cat3</option>
-                                <option value="cat4">cat4</option>
-                              </select>
+                            	<option value="">Nenhuma</option>
+								<option value="cat1">cat1</option>
+								<option value="cat2">cat2</option>
+								<option value="cat3">cat3</option>
+								<option value="cat4">cat4</option>
+							</select>
                     </form>
                 </div>
             </header>
             <div class="home">
                 <nav class="menu">
                     <div class="container row usuario">
-	                	<a href="controller.do?command=ExibirPerfil&idUsuario=${usuario.idUsuario}">
+	                	<a href="controller.do?command=ExibirPerfil&idUsuario=${usuario.idUsuario}&pagina=item&idColecao=${colecao.idColecao}">
 		                    <div class="container row usuario">
 		                        <img src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
 		                        <p>${usuario.nome}</p>
@@ -70,12 +73,12 @@
                     </div>
                     <div class="container data">
                         <div class="container">
-                            <h3>Ultima Alteração</h3>
-                            <p>99/99/9999</p>
+                            <h3>Data de criação</h3>
+                            <p>${colecao.data_criacao}</p>
                         </div>
                         <div class="container">
                             <h3>Ultima Alteração</h3>
-                            <p>99/99/9999</p>
+                            <p>${colecao.data_alteracao}</p>
                         </div>
                     </div>
                 </nav>
@@ -92,11 +95,23 @@
 	                            <a class="btn" href="controller.do?command=ExibirEditar&opcao=item&id=${item.idItem}&idColecao=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Editar</a>
 	                            <a class="btn" href="controller.do?command=Excluir&opcao=item&id=${item.idItem}&idColecao=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Excluir</a>
 	                        </div>
+	                        <div class="desc">
+	                        	<div class="aba">
+	                        		<div class="container row btnClose">
+	                        			<p>Descrição</p>
+                                    	<button class="btn">X</button>
+	                        		</div>
+	                        		<div class="container">
+                                    	<p>${item.descricao}</p>
+	                        		</div>
+                                </div>
+	                        </div>
 	                    </div>
 					</c:forEach>
                 </div>
             </div>
         </div>
 		<script src="js/script.js"></script>
+		<script src="js/showDescricao.js"></script>
     </body>
 </html>

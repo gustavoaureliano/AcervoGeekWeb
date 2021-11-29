@@ -12,7 +12,6 @@ public class Colecao {
 	private Date data_criacao;
 	private Date data_alteracao;
 	
-	
 	public int getIdColecao() {
 		return idColecao;
 	}

@@ -55,9 +55,8 @@ public class Excluir implements Command {
 		user.setIdUsuario(idUsuario);
 		UsuarioService userService = new UsuarioService();
 		userService.buscar(user);
-		
 
-		String rd = null;
+		String rd = "controller.do?command=Listar&opcao=" + opcao + "&idUsuario=" + user.getIdUsuario();
 		
 		switch (opcao) {
 		case "colecao":
@@ -66,14 +65,15 @@ public class Excluir implements Command {
 			colecao.setIdColecao(id);
 			ColecaoService colecaoService = new ColecaoService();
 			colecaoService.excluir(colecao);
-			rd = "controller.do?command=Listar&opcao=colecoes&idUsuario=" + user.getIdUsuario();
+			//rd = "controller.do?command=Listar&opcao=colecoes&idUsuario=" + user.getIdUsuario();
 			break;
 		case "item":
 			Item item = new Item();
 			item.setIdItem(id);
 			ItemService itemService = new ItemService();
 			itemService.excluir(item);
-			rd = "controller.do?command=Listar&opcao=itens&idColecao="+idColecao+"&idUsuario=" + user.getIdUsuario();
+			rd.concat("idColecao=" + id);
+			//rd = "controller.do?command=Listar&opcao=itens&idColecao="+idColecao+"&idUsuario=" + user.getIdUsuario();
 			break;
 		case "usuario":
 			userService.excluir(user);

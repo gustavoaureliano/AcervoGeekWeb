@@ -59,7 +59,7 @@ public class Listar implements Command {
 		RequestDispatcher view = null;
 		
 		switch (opcao) {
-		case "colecoes":
+		case "colecao":
 			ArrayList<Colecao> colecoes = null;
 			
 			if(chave != null && chave.length() > 0) {
@@ -70,7 +70,7 @@ public class Listar implements Command {
 			session.setAttribute("colecoes", colecoes);
 			view = request.getRequestDispatcher("colecoes.jsp");
 			break;
-		case "itens":
+		case "item":
 			Colecao colecao = new Colecao();
 			colecao.setIdColecao(idColecao);
 			colecao = colecaoService.buscar(colecao);
@@ -83,6 +83,8 @@ public class Listar implements Command {
 			} else {
 				itens = itemService.buscarItem(colecao);
 			}
+			System.out.println("dataAlteração: " + colecao.getData_alteracao());
+			System.out.println("colecao nome: " + colecao.getNome());
 			session.setAttribute("colecao", colecao);
 			session.setAttribute("itens", itens);
 			view = request.getRequestDispatcher("itens.jsp");

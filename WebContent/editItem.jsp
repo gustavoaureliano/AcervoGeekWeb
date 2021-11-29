@@ -49,6 +49,7 @@
                         </div>
                         <div class="container">
                             <img class="imgFile" src="controller.do?command=ExibirImagem&opcao=item&id=${item.idItem}" alt="">
+                            <label class="btn" for="imagem">Escolher Imagem</label>
                             <input type="file" name="imagem" id="imagem">
                         </div>
                         <div class="container">
@@ -68,6 +69,7 @@
                         <div class="container row">
                             <input type="hidden" name="opcao" value="item">
                             <input type="hidden" name="id" value="${item.idItem}">
+                            <input type="hidden" name="idColecao" value="${item.idColecao}">
                             <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
                         	<button class="btn" type="submit" name="command" value="Editar"> Salvar </button>
                         </div>

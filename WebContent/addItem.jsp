@@ -65,6 +65,9 @@
                                 <option value="cat3">cat3</option>
                                 <option value="cat4">cat4</option>
                               </select>
+                            <a href="controller.do?command=Adicionar&pagina=addItem.jsp=categoria&id=${colecao.idColecao}">
+                                <img src="imagens/btnAdd.png" alt="">
+	                        </a>
                         </div>
                         <div class="container row">
                             <input type="hidden" name="opcao" value="item">

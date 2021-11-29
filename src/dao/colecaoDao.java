@@ -78,6 +78,8 @@ public class colecaoDao {
 					colecao.setNome(rs.getString(3));
 					colecao.setDescricao(rs.getString(4));
 					colecao.setImagem(rs.getBinaryStream(5));
+					colecao.setData_alteracao(rs.getDate("data_alteracao"));
+					colecao.setData_criacao(rs.getDate("data_criacao"));
 				}
 			}
 			catch (Exception e) {
@@ -108,6 +110,8 @@ public class colecaoDao {
 					colecao.setNome(rs.getString("nome"));
 					colecao.setDescricao(rs.getString("descricao"));
 					colecao.setImagem(rs.getBinaryStream("imagem"));
+					colecao.setData_alteracao(rs.getDate("data_alteracao"));
+					colecao.setData_criacao(rs.getDate("data_criacao"));
 					
 					lista.add(colecao);
 				}
@@ -137,6 +141,8 @@ public class colecaoDao {
 	                colecao.setNome(rs.getString(3));
 	                colecao.setDescricao(rs.getString(4));
 	                colecao.setImagem(rs.getBinaryStream(5));
+					colecao.setData_alteracao(rs.getDate("data_alteracao"));
+					colecao.setData_criacao(rs.getDate("data_criacao"));
 	                
 	                lista.add(colecao);
 	            }

@@ -29,7 +29,7 @@
                     <form id="searchBox" class="searchBox" action="controller.do" method="post">
                             <input class="inputText" type="search" name="chave" id="chave">
                             <label class="btnSearch" for="search"></label>
-                            <input type="hidden" name="opcao" value="colecoes">
+                            <input type="hidden" name="opcao" value="colecao">
                             <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
                         	<button id="search" type="submit" name="command" value="Listar"> Pesquisar </button>
                     </form>
@@ -37,7 +37,7 @@
             </header>
             <div class="home">
                 <nav class="menu">
-                	<a href="controller.do?command=ExibirPerfil&idUsuario=${usuario.idUsuario}">
+                	<a href="controller.do?command=ExibirPerfil&idUsuario=${usuario.idUsuario}&pagina=colecao">
 	                    <div class="container row usuario">
 	                        <img src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
 	                        <p>${usuario.nome}</p>
@@ -64,21 +64,21 @@
                     </div>
                 </nav>
                 <div class="listItens">
-	               <c:forEach var="colecao" items="${colecoes}">
-	                    <div class="container item">
-	                        <div class="container">
-	                            <h2>${colecao.nome}</h2>
-	                        </div>
-	                        <div class="img">
-	                        	<a href="controller.do?command=Listar&opcao=itens&idColecao=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">
+					<c:forEach var="colecao" items="${colecoes}">
+						<a href="controller.do?command=Listar&opcao=item&idColecao=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">
+		                    <div class="container item">
+		                        <div class="container">
+		                            <h2>${colecao.nome}</h2>
+		                        </div>
+		                        <div class="img">
 		                            <img src="controller.do?command=ExibirImagem&opcao=colecao&id=${colecao.idColecao}" alt="">
-	                        	</a>
-	                        </div>
-	                        <div class="container alterar">
-	                            <a class="btn" href="controller.do?command=ExibirEditar&opcao=colecao&id=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Editar</a>
-	                            <a class="btn" href="controller.do?command=ExcluirColecao&opcao=colecao&id=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Excluir</a>
-	                        </div>
-	                    </div>
+		                        </div>
+		                        <div class="container alterar">
+		                            <a class="btn" href="controller.do?command=ExibirEditar&opcao=colecao&id=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Editar</a>
+		                            <a class="btn" href="controller.do?command=Excluir&opcao=colecao&id=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Excluir</a>
+		                        </div>
+		                    </div>
+	                    </a>
 					</c:forEach>
                 </div>
             </div>
