@@ -1,5 +1,8 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Random" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -10,6 +13,22 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    	<%
+    		ArrayList<String> imagens = new ArrayList<String>();
+    		imagens.add("./imagens/imagem-login-1.jpg");
+    		imagens.add("./imagens/imagem-login-2.png");
+    		imagens.add("./imagens/imagem-login-3.jpg");
+    		imagens.add("./imagens/imagem-login-4.jpg");
+    		imagens.add("./imagens/imagem-login-5.jpg");
+    		imagens.add("./imagens/imagem-login-7.jpg");
+    		Random num = new Random();
+    		String imagem = imagens.get(num.nextInt(6));
+    	%>
+        <style>
+        	.imgLogin {
+        		background-image: url(<%= imagem %>);
+        	}
+        </style>
     </head>
     <body>
         <div class="main row">
