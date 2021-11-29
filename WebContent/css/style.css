@@ -140,7 +140,6 @@ input[type=submit], .formulario .btn {
 .formulario {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     /*border-radius: 15px;*/
     flex: 1.2;

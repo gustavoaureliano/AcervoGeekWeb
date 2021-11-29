@@ -15,6 +15,7 @@
         <div class="main row">
             <div class="imagem imgLogin"></div>
             <div class="formulario">
+            	<div class="espacamento"></div>
                 <div class="container">
                     <h1>Insira seus dados de login</h1>
                 </div>
@@ -32,6 +33,7 @@
                         <button class="btn" type="submit" name="command" value="Login"> Login </button>
                     </div>
                 </form>
+            	<div class="espacamento"></div>
             </div>
         </div>
     </body>

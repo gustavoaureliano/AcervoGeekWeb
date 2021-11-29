@@ -15,6 +15,7 @@
         <div class="main row">
             <div class="imagem imgCadastro"></div>
             <div class="formulario">
+            	<div class="espacamento"></div>
                 <div class="container">
                     <h1>Seja bem vindo ao <strong>ACERVO GEEK</strong>!</h1>
                     <p>Crie uma conta hoje e organize sua coleção pessoal!</p>
@@ -37,6 +38,7 @@
                         <button class="btn" type="submit" name="command" value="CadastrarUsuario"> Cadastrar </button>
                     </div>
                 </form>
+            	<div class="espacamento"></div>
             </div>
         </div>
     </body>
