@@ -33,13 +33,6 @@
                             <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
                             <input type="hidden" name="idColecao" value="${colecao.idColecao}">
                         	<button id="search" type="submit" name="command" value="Listar"> Pesquisar </button>
-                            <select class="categorias" name="categoria" id="categoria" form="searchBox">
-                            	<option value="">Nenhuma</option>
-								<option value="cat1">cat1</option>
-								<option value="cat2">cat2</option>
-								<option value="cat3">cat3</option>
-								<option value="cat4">cat4</option>
-							</select>
                     </form>
                 </div>
             </header>

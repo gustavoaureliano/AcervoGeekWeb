@@ -24,20 +24,7 @@
                     <h1>Sobre</h1>
                 </div>
                 <div class="espacamento"></div>
-                <div class="container">
-                    <form id="searchBox" class="searchBox" action="controller.do" method="post">
-                            <input class="inputText" type="search" name="chave" id="chave">
-                            <label class="btnSearch" for="search"></label>
-                            <input id="search" type="submit" value="Pesquisar">
-                            <select class="categorias" name="categoria" id="categoria" form="searchBox">
-                                <option value="">Nenhuma</option>
-                                <option value="cat1">cat1</option>
-                                <option value="cat2">cat2</option>
-                                <option value="cat3">cat3</option>
-                                <option value="cat4">cat4</option>
-                              </select>
-                    </form>
-                </div>
+                <div class="espacamento"></div>
             </header>
             <div class="card">
                 <div class="espacamento"></div>

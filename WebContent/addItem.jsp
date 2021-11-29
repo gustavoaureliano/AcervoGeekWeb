@@ -28,14 +28,10 @@
                     <form id="searchBox" class="searchBox" action="controller.do" method="post">
                             <input class="inputText" type="search" name="chave" id="chave">
                             <label class="btnSearch" for="search"></label>
-                            <input id="search" type="submit" value="Pesquisar">
-                            <select class="categorias" name="categoria" id="categoria" form="searchBox">
-                                <option value="">Nenhuma</option>
-                                <option value="1">cat1</option>
-                                <option value="2">cat2</option>
-                                <option value="3">cat3</option>
-                                <option value="4">cat4</option>
-                              </select>
+                            <input type="hidden" name="opcao" value="item">
+                            <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
+                            <input type="hidden" name="idColecao" value="${colecao.idColecao}">
+                        	<button id="search" type="submit" name="command" value="Listar"> Pesquisar </button>
                     </form>
                 </div>
             </header>
@@ -55,19 +51,6 @@
                         <div class="container">
                             <label for="descricao">Descrição</label>
                             <textarea name="descricao" id="descricao"></textarea>
-                        </div>
-                        <div class="container row">
-                            <label class="lblCategoria" for="idCategoria">Categoria: </label>
-                            <select class="categorias" name="idCategoria" id="idCategoria" form="searchBox">
-                                <option value="">Nenhuma</option>
-                                <option value="cat1">cat1</option>
-                                <option value="cat2">cat2</option>
-                                <option value="cat3">cat3</option>
-                                <option value="cat4">cat4</option>
-                              </select>
-                            <a href="controller.do?command=Adicionar&pagina=addItem.jsp=categoria&id=${colecao.idColecao}">
-                                <img src="imagens/btnAdd.png" alt="">
-	                        </a>
                         </div>
                         <div class="container row">
                             <input type="hidden" name="opcao" value="item">

@@ -16,7 +16,7 @@
             <header>
                 <div class="espacamento"></div>
                 <div class="container espacamento">
-                    <a href="colecoes.html">
+                    <a href="colecoes.jsp">
                         <img src="imagens/logo.png" alt="">
                     </a>
                 </div>
@@ -28,14 +28,10 @@
                     <form id="searchBox" class="searchBox" action="controller.do" method="post">
                             <input class="inputText" type="search" name="chave" id="chave">
                             <label class="btnSearch" for="search"></label>
-                            <input id="search" type="submit" value="Pesquisar">
-                            <select class="categorias" name="categoria" id="categoria" form="searchBox">
-                                <option value="">Nenhuma</option>
-                                <option value="cat1">cat1</option>
-                                <option value="cat2">cat2</option>
-                                <option value="cat3">cat3</option>
-                                <option value="cat4">cat4</option>
-                              </select>
+                            <input type="hidden" name="opcao" value="item">
+                            <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
+                            <input type="hidden" name="idColecao" value="${colecao.idColecao}">
+                        	<button id="search" type="submit" name="command" value="Listar"> Pesquisar </button>
                     </form>
                 </div>
             </header>
@@ -55,16 +51,6 @@
                         <div class="container">
                             <label for="descricao">Descrição</label>
                             <textarea name="descricao" id="descricao">${item.descricao}</textarea>
-                        </div>
-                        <div class="container row">
-                            <label class="lblCategoria" for="categoria">Categoria: </label>
-                            <select class="categorias" name="categoria" id="categoria" form="searchBox">
-                                <option value="">Nenhuma</option>
-                                <option value="cat1">cat1</option>
-                                <option value="cat2">cat2</option>
-                                <option value="cat3">cat3</option>
-                                <option value="cat4">cat4</option>
-                              </select>
                         </div>
                         <div class="container row">
                             <input type="hidden" name="opcao" value="item">
