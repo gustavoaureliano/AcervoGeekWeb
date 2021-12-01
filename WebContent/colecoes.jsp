@@ -65,24 +65,42 @@
                 </nav>
                 <div class="listItens">
 					<c:forEach var="colecao" items="${colecoes}">
-						<a href="controller.do?command=Listar&opcao=item&idColecao=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">
-		                    <div class="container item">
-		                        <div class="container">
-		                            <h2>${colecao.nome}</h2>
-		                        </div>
-		                        <div class="img">
-		                            <img src="controller.do?command=ExibirImagem&opcao=colecao&id=${colecao.idColecao}" alt="">
-		                        </div>
-		                        <div class="container alterar">
-		                            <a class="btn" href="controller.do?command=ExibirEditar&opcao=colecao&id=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Editar</a>
-		                            <a class="btn" href="controller.do?command=Excluir&opcao=colecao&id=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Excluir</a>
-		                        </div>
-		                    </div>
-	                    </a>
+	                    <div class="container item">
+	                        <div class="content">
+	                        	<a href="controller.do?command=Listar&opcao=item&idColecao=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">
+			                        <div class="container">
+			                            <h2>${colecao.nome}</h2>
+			                        </div>
+			                        <div class="img">
+			                            <img src="controller.do?command=ExibirImagem&opcao=colecao&id=${colecao.idColecao}" alt="">
+			                        </div>
+			                	</a>
+	                    	</div>
+	                        <div class="container alterar">
+	                        	<a class="btn" href="controller.do?command=ExibirEditar&opcao=colecao&id=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Editar</a>
+                            	<a class="btn showExcluir">Excluir</a>
+                            	<div class="back">
+                                   <div class="popup">
+                                       <div class="container row btnClose">
+                                           <p>Excluir ${colecao.nome}</p>
+                                           <button class="btn">X</button>
+                                       </div>
+                                       <div class="container">
+                                           <p>Tem certeza que deseja excluir a coleção?</p>
+                                           <div class="container row confirma"> 
+	                            				<a class="btn" href="controller.do?command=Excluir&opcao=colecao&id=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Sim</a>
+	                                           	<a class="btn">Não</a>
+                                           </div>
+                                       </div>
+                                   </div>
+	                           	</div>
+                        	</div>
+	                    </div>
 					</c:forEach>
                 </div>
             </div>
         </div>
 		<script src="js/script.js"></script>
+		<script src="js/showDescricao.js"></script>
     </body>
 </html>

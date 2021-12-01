@@ -79,8 +79,8 @@
                             <img src="imagens/btnDescColecao.png" alt="">
                             <h3>${colecao.nome}</h2>
                         </div>
-                    	<div class="desc">
-                        	<div class="aba">
+                    	<div class="back">
+                        	<div class="popup">
                         		<div class="container row btnClose">
                         			<p>Descrição</p>
                                 	<button class="btn">X</button>
@@ -95,18 +95,35 @@
                 <div class="listItens">
 	               <c:forEach var="item" items="${itens}">
 	                    <div class="container item">
-	                        <div class="container">
-	                            <h2>${item.nome}</h2>
-	                        </div>
-	                        <div class="img">
-	                            <img src="controller.do?command=ExibirImagem&opcao=item&id=${item.idItem}" alt="">
-	                        </div>
+	                    	<div class="content">
+		                        <div class="container">
+		                            <h2>${item.nome}</h2>
+		                        </div>
+		                        <div class="img">
+		                            <img src="controller.do?command=ExibirImagem&opcao=item&id=${item.idItem}" alt="">
+		                        </div>
+	                    	</div>
 	                        <div class="container alterar">
 	                            <a class="btn" href="controller.do?command=ExibirEditar&opcao=item&id=${item.idItem}&idColecao=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Editar</a>
-	                            <a class="btn" href="controller.do?command=Excluir&opcao=item&id=${item.idItem}&idColecao=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Excluir</a>
+                                <a class="btn showExcluir">Excluir</a>
+                                <div class="back">
+                                    <div class="popup">
+                                        <div class="container row btnClose">
+                                            <p>Excluir ${item.nome}</p>
+                                            <button class="btn">X</button>
+                                        </div>
+                                        <div class="container">
+                                            <p>Tem certeza que deseja excluir o item?</p>
+                                            <div class="container row confirma"> 
+                                            	<a class="btn" href="controller.do?command=Excluir&opcao=item&id=${item.idItem}&idColecao=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Sim</a>
+                                            	<a class="btn">Não</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 	                        </div>
-	                        <div class="desc">
-	                        	<div class="aba">
+	                        <div class="back">
+	                        	<div class="popup">
 	                        		<div class="container row btnClose">
 	                        			<p>Descrição</p>
                                     	<button class="btn">X</button>

@@ -1,19 +1,27 @@
-const itens = document.querySelectorAll(".listItens .item")
-const btnsClose = document.querySelectorAll(".desc .btn")
+const itens = document.querySelectorAll(".listItens .item .content");
+const btnsClose = document.querySelectorAll(".back .btn");
+const btnsExluir = document.querySelectorAll(".btn.showExcluir");
 
 itens.forEach(item => {
     item.addEventListener("click", e => {
-        let desc = e.target.closest(".item").lastElementChild;
-        console.log(desc);
-        desc.classList.add("show");
+        let back = e.target.closest(".item").lastElementChild;
+        console.log(back);
+        back.classList.add("show");
     }, true)
 });
 
 btnsClose.forEach(btn => {
     btn.addEventListener("click", e => {
-        let desc = e.target.closest(".desc");
-        console.log(desc);
-        desc.classList.remove("show");
+        let back = e.target.closest(".back");
+        console.log(back);
+        back.classList.remove("show");
+    })
+});
+
+btnsExluir.forEach(item => {
+    item.addEventListener("click", e => {
+        let back = e.target.closest(".alterar").lastElementChild;
+        back.classList.add("show");
     })
 });
 
@@ -26,3 +34,4 @@ btnDesc.forEach(btn => {
         desc.classList.add("show");
     }, true)
 });
+
