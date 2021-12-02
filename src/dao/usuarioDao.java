@@ -14,8 +14,11 @@ public class usuarioDao {
 	
 	
 	public int cadastro(Usuario usuario) {
-		
-		try(Connection conn = ConnectionFactory.conectar(); CallableStatement stm = (CallableStatement) conn.prepareCall("{call usp_cadastrarUsuario(?, ?, ?, ?)}")){
+		String sqlInsert = "{call usp_cadastrarUsuario(?, ?, ?, ?)}";
+		try(
+				Connection conn = ConnectionFactory.conectar(); 
+				CallableStatement stm = (CallableStatement) conn.prepareCall(sqlInsert)
+						){
 			stm.setString(1, usuario.getUsuario());
 			stm.setString(2, usuario.getNome());
 			stm.setString(3, usuario.getSenha());
