@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.cj.jdbc.CallableStatement;
 
 import model.Categoria;
 import model.Colecao;
@@ -29,8 +30,11 @@ public class categoriaDao {
 	
 	
 	public void excluir(Categoria categoria) {
-		String sqlDelete = "DELETE FROM categoria where idCategoria = ?";
-		try (Connection conn = ConnectionFactory.conectar(); PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
+		String procedureDelete = "{call usp_excluirCategoria(?)}";
+		try (
+				Connection conn = ConnectionFactory.conectar(); 
+				CallableStatement stm = (CallableStatement) conn.prepareCall(procedureDelete);
+		) {
 			stm.setInt(1, categoria.getIdCategoria());
 			
 			stm.execute();

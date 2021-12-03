@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
@@ -31,12 +32,12 @@
                 <div class="container perfil">
                     <form action="controller.do" enctype="multipart/form-data" method="post">
                         <div class="container">
-                            <c:choose>
+                           	<c:choose>
 							    <c:when test="${usuario.foto != null}">
-                        			<img src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
+                        			<img class="imgFile" src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
 							    </c:when>    
 							    <c:otherwise>
-                        			<img src="imagens/usuario.jpg" alt="">
+                        			<img class="imgFile" src="imagens/usuario.jpg" alt="">
 							    </c:otherwise>
 							</c:choose>
                             <label class="btn" for="imagem">Escolher Imagem</label>

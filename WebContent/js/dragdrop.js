@@ -60,7 +60,6 @@ function changeImage(file) {
 	
 	if (file.type.startsWith("image/")) {
 		console.log(img);
-		//img.src = window.URL.createObjectURL(file);
 		const reader = new FileReader();
 		console.log(reader);
 		reader.readAsDataURL(file);
