@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,8 +52,11 @@ public class itemDao {
 	
 	
 	public void atualizarItem(Item item) {
-		
-		try(Connection conn = ConnectionFactory.conectar(); CallableStatement stm = (CallableStatement) conn.prepareCall("{call usp_atualizarItem(?, ?, ?, ?, ?)}")){
+		String sqlUpdate = "{call usp_atualizarItem(?, ?, ?, ?, ?)}";
+		try(Connection conn = ConnectionFactory.conectar(); 
+				CallableStatement stm = (CallableStatement) conn.prepareCall(sqlUpdate)
+		){
+			
 			if (item.getIdCategoria() > 0)
 				stm.setInt(1, item.getIdCategoria());				
 			else
@@ -62,7 +66,7 @@ public class itemDao {
 			stm.setObject(4, item.getImagem());
 			stm.setInt(5, item.getIdItem());
 			
-			stm.execute();
+			stm.executeUpdate();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -83,7 +87,12 @@ public class itemDao {
 					item.setIdCategoria(rs.getInt("idCategoria"));
 					item.setNome(rs.getString("nome"));
 					item.setDescricao(rs.getString("descricao"));
-					item.setImagem(rs.getBinaryStream("imagem"));
+					
+					InputStream imagem = rs.getBinaryStream(6);
+					
+					if(imagem != null) {
+						item.setImagem(rs.getBinaryStream(6));					
+					}
 				}
 			}
 			catch (Exception e) {
@@ -98,13 +107,19 @@ public class itemDao {
 	}
 	
 	
-	public ArrayList<Item> buscarItem(Colecao colecao) {
-		String sqlSelect = "SELECT * from item where idColecao = ?";
+	public ArrayList<Item> buscarItem(Colecao colecao, Categoria categoria) {
+		String sqlSelect = "";
+		if (categoria.getIdCategoria() > 0)
+			sqlSelect = "SELECT * from item where idColecao = ? and idCategoria = ?";
+		else
+        	sqlSelect = "SELECT * from item where idColecao = ?";
 		ArrayList<Item> lista = new ArrayList<>();
 		
 		try(Connection conn = ConnectionFactory.conectar();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);){
 			stm.setInt(1, colecao.getIdColecao());
+			if (categoria.getIdCategoria() > 0)
+				stm.setInt(2, categoria.getIdCategoria());
 			try (ResultSet rs = stm.executeQuery();){
 				while(rs.next()) {
 					Item item = new Item();
@@ -114,7 +129,12 @@ public class itemDao {
 					item.setIdCategoria(rs.getInt("idCategoria"));
 					item.setNome(rs.getString("nome"));
 					item.setDescricao(rs.getString("descricao"));
-					item.setImagem(rs.getBinaryStream("imagem"));
+					
+					InputStream imagem = rs.getBinaryStream(6);
+					
+					if(imagem != null) {
+						item.setImagem(rs.getBinaryStream(6));					
+					}
 					
 					lista.add(item);
 				}
@@ -129,14 +149,21 @@ public class itemDao {
 	}
 	
 	
-	public ArrayList<Item> buscarItem(Colecao colecao, String chave) {
-        String sqlSelect = "select * from item where idColecao = ? and upper(nome) like ?";
+	public ArrayList<Item> buscarItem(Colecao colecao, Categoria categoria, String chave) {
+		String sqlSelect = "";
+		if (categoria.getIdCategoria() > 0)
+			sqlSelect = "select * from item where idColecao = ? and upper(nome) like ? and idCategoria = ?";
+		else
+        	sqlSelect = "select * from item where idColecao = ? and upper(nome) like ?";
+        
         ArrayList<Item> lista = new ArrayList<Item>();
 
         try (Connection conn = ConnectionFactory.conectar();
                 PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
 			stm.setInt(1, colecao.getIdColecao());
-            stm.setString(2, "%" + chave.toUpperCase() + "%");
+			stm.setString(2, "%" + chave.toUpperCase() + "%");
+			if (categoria.getIdCategoria() > 0)
+				stm.setInt(3, categoria.getIdCategoria());
             try(ResultSet rs = stm.executeQuery();){
             while (rs.next()) {
             	Item item = new Item();
@@ -145,7 +172,12 @@ public class itemDao {
 				item.setIdCategoria(rs.getInt(3));
 				item.setNome(rs.getString(4));
 				item.setDescricao(rs.getString(5));
-				item.setImagem(rs.getBinaryStream(6));
+				
+				InputStream imagem = rs.getBinaryStream(6);
+				
+				if(imagem != null) {
+					item.setImagem(rs.getBinaryStream(6));					
+				}
                 
                 lista.add(item);
             }

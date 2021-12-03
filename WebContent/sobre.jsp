@@ -16,7 +16,7 @@
             <header>
                 <div class="espacamento"></div>
                 <div class="container espacamento">
-                    <a href="colecoes.html">
+                    <a href="colecoes.jsp">
                         <img src="imagens/logo.png" alt="">
                     </a>
                 </div>

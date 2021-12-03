@@ -97,14 +97,18 @@ public class Editar implements Command {
 			item.setIdItem(id);
 			ItemService itemService = new ItemService();
 			item = itemService.buscar(item);
+			
+			if(idCategoria > 0)
+				item.setIdCategoria(idCategoria);
+			else
+				item.setIdCategoria(0);
+			
 			item.setNome(nome);
 			item.setDescricao(descricao);
 			
 			if (filePart.getSize() > 0) {
 				item.setImagem(filePart.getInputStream());
 			}
-			
-			item.setIdCategoria(idCategoria);
 			itemService.atualizarItem(item);
 			break;
 		case "usuario":

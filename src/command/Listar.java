@@ -27,6 +27,7 @@ public class Listar implements Command {
 		String opcao = request.getParameter("opcao");
 		String sIdUsuario = request.getParameter("idUsuario");
 		String sIdColecao = request.getParameter("idColecao");
+		String sIdCategoria = request.getParameter("categoria");
 		String chave = request.getParameter("chave");
 		
 		int idUsuario = -1;
@@ -45,18 +46,29 @@ public class Listar implements Command {
 			System.out.println(e.getMessage());
 		}
 		
+		int idCategoria = -1;
+		
+		try {
+			idCategoria = Integer.parseInt(sIdCategoria);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		ColecaoService colecaoService = new ColecaoService();
+		
+		
+		
+		HttpSession session = request.getSession();
+
+		RequestDispatcher view = null;
+
 		Usuario user = new Usuario();
 		user.setIdUsuario(idUsuario);
 				
 		UsuarioService userService = new UsuarioService();
 		user = userService.buscar(user);
 		
-		ColecaoService colecaoService = new ColecaoService();
-		
-		HttpSession session = request.getSession();
 		session.setAttribute("usuario", user);
-
-		RequestDispatcher view = null;
 		
 		switch (opcao) {
 		case "colecao":
@@ -76,17 +88,22 @@ public class Listar implements Command {
 			colecao = colecaoService.buscar(colecao);
 			
 			ItemService itemService = new ItemService();
-			ArrayList<Item> itens = itemService.buscarItem(colecao);
+			ArrayList<Item> itens = null;
+			
+			Categoria categoria = new Categoria();
+			categoria.setIdCategoria(idCategoria);
 			
 			if(chave != null && chave.length() > 0) {
-				itens = itemService.buscarItem(colecao, chave);
+				itens = itemService.buscarItem(colecao, categoria, chave);
 			} else {
-				itens = itemService.buscarItem(colecao);
+				itens = itemService.buscarItem(colecao, categoria);
 			}
-			System.out.println("dataAlteração: " + colecao.getData_alteracao());
-			System.out.println("colecao nome: " + colecao.getNome());
+			CategoriaService catService = new CategoriaService();
+        	ArrayList<Categoria> categorias = catService.buscarCategoria(colecao);
+        	session.setAttribute("categorias", categorias);
 			session.setAttribute("colecao", colecao);
 			session.setAttribute("itens", itens);
+			session.setAttribute("categoriaSelecionada", categoria);
 			view = request.getRequestDispatcher("itens.jsp");
 			break;
 		default:

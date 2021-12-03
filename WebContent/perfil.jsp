@@ -31,7 +31,14 @@
                 <div class="container perfil">
                     <form action="controller.do" enctype="multipart/form-data" method="post">
                         <div class="container">
-                            <img class="imgFile" src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
+                            <c:choose>
+							    <c:when test="${usuario.foto != null}">
+                        			<img src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
+							    </c:when>    
+							    <c:otherwise>
+                        			<img src="imagens/usuario.jpg" alt="">
+							    </c:otherwise>
+							</c:choose>
                             <label class="btn" for="imagem">Escolher Imagem</label>
                             <input type="file" name="imagem" id="imagem">
                         </div>

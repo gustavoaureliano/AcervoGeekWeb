@@ -39,7 +39,16 @@
                 <nav class="menu">
                 	<a href="controller.do?command=ExibirPerfil&idUsuario=${usuario.idUsuario}&pagina=colecao">
 	                    <div class="container row usuario">
-	                        <img src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
+	                    	<div class="usuarioImg">
+	                        	<c:choose>
+								    <c:when test="${usuario.foto != null}">
+	                        			<img src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
+								    </c:when>    
+								    <c:otherwise>
+	                        			<img src="imagens/usuario.jpg" alt="">
+								    </c:otherwise>
+								</c:choose>
+	                    	</div>
 	                        <p>${usuario.nome}</p>
 	                    </div>                	
                 	</a>
@@ -77,7 +86,7 @@
 			                	</a>
 	                    	</div>
 	                        <div class="container alterar">
-	                        	<a class="btn" href="controller.do?command=ExibirEditar&opcao=colecao&id=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Editar</a>
+	                        	<a class="btn" href="controller.do?command=ExibirEditar&opcao=colecao&idColecao=${colecao.idColecao}&idUsuario=${usuario.idUsuario}">Editar</a>
                             	<a class="btn showExcluir">Excluir</a>
                             	<div class="back">
                                    <div class="popup">

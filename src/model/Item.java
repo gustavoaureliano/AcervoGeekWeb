@@ -3,12 +3,12 @@ package model;
 import java.io.InputStream;
 
 public class Item {
-	private int idItem;
-	private int idColecao;
-	private int idCategoria;
-	private String nome;
-	private String descricao;
-	private InputStream imagem;
+	private int idItem = 0;
+	private int idColecao = 0;
+	private int idCategoria = 0;
+	private String nome = "";
+	private String descricao = "";
+	private InputStream imagem = null;
 	
 	
 	public int getIdItem() {

@@ -84,10 +84,8 @@ public class Adicionar implements Command {
 			Item item = new Item();
 			item.setIdColecao(id);
 			
-			System.out.println("idColecao: " + id);
-			System.out.println("idCategoria: " + idCategoria);
-			if(idCategoria == 0) {
-				System.out.print("Cat é 0: " + idCategoria);
+			if(idCategoria > 0) {
+				item.setIdCategoria(idCategoria);
 			}
 			
 			item.setNome(nome);

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 
 import model.Categoria;
+import model.Colecao;
 
 public class categoriaDao {
 	
@@ -47,7 +48,7 @@ public class categoriaDao {
 				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
 			stm.setInt(1, categoria.getIdColecao());
 			stm.setString(2, categoria.getNome());
-			
+			stm.setInt(3, categoria.getIdCategoria());
 			stm.execute();
 		}
 		catch (Exception e) {
@@ -81,21 +82,27 @@ public class categoriaDao {
 	}
 	
 	
-	public ArrayList<Categoria> buscarCategoria() {
-		String sqlSelect = "SELECT * from categoria";
+	public ArrayList<Categoria> buscarCategoria(Colecao colecao) {
+		String sqlSelect = "SELECT * from categoria where idColecao = ?";
 		ArrayList<Categoria> lista = new ArrayList<>();
 		
 		try(Connection conn = ConnectionFactory.conectar();
-				PreparedStatement stm = conn.prepareStatement(sqlSelect); ResultSet rs = stm.executeQuery();){
-			while(rs.next()) {
-				Categoria categoria = new Categoria();
-				
-				categoria.setIdCategoria(rs.getInt("idCategoria"));
-				categoria.setIdColecao(rs.getInt("idColecao"));
-				categoria.setNome(rs.getString("nome"));
-				
-				lista.add(categoria);
-			}
+				PreparedStatement stm = conn.prepareStatement(sqlSelect)){
+			stm.setInt(1, colecao.getIdColecao());
+			try (ResultSet rs = stm.executeQuery();) {
+				while(rs.next()) {
+					Categoria categoria = new Categoria();
+					
+					categoria.setIdCategoria(rs.getInt("idCategoria"));
+					categoria.setIdColecao(rs.getInt("idColecao"));
+					categoria.setNome(rs.getString("nome"));
+					
+					lista.add(categoria);
+				}
+			} catch (SQLException e){
+                e.printStackTrace();
+            }
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -103,22 +110,23 @@ public class categoriaDao {
 	}
 	
 	
-	public ArrayList<Categoria> buscarCategoria(String chave) {
-        String sqlSelect = "select * from categoria where upper(nome) like ?";
+	public ArrayList<Categoria> buscarCategoria(Colecao colecao, String chave) {
+        String sqlSelect = "select * from categoria where upper(nome) like ? and idColecao = ?";
         ArrayList<Categoria> lista = new ArrayList<Categoria>();
 
         try (Connection conn = ConnectionFactory.conectar();
                 PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
             stm.setString(1, "%" + chave.toUpperCase() + "%");
+			stm.setInt(2, colecao.getIdColecao());
             try(ResultSet rs = stm.executeQuery();){
-            while (rs.next()) {
-            	Categoria categoria = new Categoria();
-            	categoria.setIdCategoria(rs.getInt(1));
-                categoria.setIdColecao(rs.getInt(2));
-                categoria.setNome(rs.getString(3));
-                
-                lista.add(categoria);
-            }
+	            while (rs.next()) {
+	            	Categoria categoria = new Categoria();
+	            	categoria.setIdCategoria(rs.getInt(1));
+	                categoria.setIdColecao(rs.getInt(2));
+	                categoria.setNome(rs.getString(3));
+	                
+	                lista.add(categoria);
+	            }
             }catch (SQLException e){
                 e.printStackTrace();
             }

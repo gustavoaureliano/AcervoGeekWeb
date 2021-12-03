@@ -35,3 +35,13 @@ btnDesc.forEach(btn => {
     }, true)
 });
 
+const btnCat = document.querySelectorAll("#btnCat");
+
+btnCat.forEach(btn => {
+    btn.addEventListener("click", e => {
+        let categoria = e.target.closest(".boxCat").lastElementChild;
+        console.log(categoria);
+        categoria.classList.add("show");
+    }, true)
+});
+

@@ -4,13 +4,13 @@ import java.io.InputStream;
 import java.sql.Date;
 
 public class Colecao {
-	private int idColecao;
-	private int idUsuario;
-	private String nome;
-	private String descricao;
+	private int idColecao = 0;
+	private int idUsuario = 0;
+	private String nome = "";
+	private String descricao = "";
 	private InputStream imagem;
-	private Date data_criacao;
-	private Date data_alteracao;
+	private Date data_criacao = null;
+	private Date data_alteracao = null;
 	
 	public int getIdColecao() {
 		return idColecao;

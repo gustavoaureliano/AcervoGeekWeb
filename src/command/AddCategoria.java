@@ -1,6 +1,7 @@
 package command;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,19 +12,18 @@ import javax.servlet.http.Part;
 
 import model.Categoria;
 import model.Colecao;
-import model.Item;
 import model.Usuario;
+import service.CategoriaService;
 import service.ColecaoService;
-import service.ItemService;
-import service.UsuarioService;
 
-public class ExibirEditar implements Command {
+public class AddCategoria implements Command {
 
 	@Override
 	public void executar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String opcao = request.getParameter("opcao");
+		String nome = request.getParameter("nome");
 		String sId = request.getParameter("id");
 		String sIdUsuario = request.getParameter("idUsuario");
 		String sIdColecao = request.getParameter("idColecao");
@@ -52,45 +52,47 @@ public class ExibirEditar implements Command {
 			System.out.println(e.getMessage());
 		}
 		
+		Categoria categoria = new Categoria();
+		categoria.setIdColecao(idColecao);
+		categoria.setNome(nome);
+		CategoriaService catService = new CategoriaService();
+		catService.incluir(categoria);
+		
 		Usuario user = new Usuario();
 		user.setIdUsuario(idUsuario);
-
-		HttpSession session = request.getSession();
-		session.setAttribute("usuario", user);
 		
-		RequestDispatcher view = null;
-
+		ColecaoService colecaoService = new ColecaoService();
 		Colecao colecao = new Colecao();
 		colecao.setIdColecao(idColecao);
-		ColecaoService colecaoService = new ColecaoService();
 		colecao = colecaoService.buscar(colecao);
+		
+		HttpSession session = request.getSession();
 		session.setAttribute("colecao", colecao);
+
+    	ArrayList<Categoria> categorias = catService.buscarCategoria(colecao);
+    	session.setAttribute("categorias", categorias);
+		session.setAttribute("categoriaSelecionada", categoria);
+		
+		String rd = "";
 		
 		switch (opcao) {
-		case "colecao":
-			System.out.println("idColecao: " + id);
-			view = request.getRequestDispatcher("editColecao.jsp");
-			break;
 		case "item":
-			Item item = new Item();
-			item.setIdItem(id);
-			ItemService itemService = new ItemService();
-			item = itemService.buscar(item);
-			session.setAttribute("item", item);
-			view = request.getRequestDispatcher("editItem.jsp");
+			rd = "controller.do?command=Listar&opcao=item&idUsuario=" + user.getIdUsuario() + "&idColecao=" + idColecao;
 			break;
-		case "categoria":
-			Categoria categoria = new Categoria();
-			categoria.setIdCategoria(id);
+		case "addItem":
+			//HttpSession session = request.getSession();
+			//session.setAttribute("id", id);
+			rd = "addItem.jsp";
+			System.out.println(rd);
+			break;
+		case "editItem":
+			rd = "controller.do?command=ExibirEditar&opcao=item&id=" + id + "&idColecao=" + idColecao + "&idUsuario=" + idUsuario;
 			break;
 		default:
 			break;
 		}
-		
-		
-		
 
-		
+		RequestDispatcher view = request.getRequestDispatcher(rd);
 		view.forward(request, response);
 
 	}

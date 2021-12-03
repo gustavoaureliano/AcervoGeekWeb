@@ -2,18 +2,13 @@ package command;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import model.Colecao;
 import model.Item;
 import model.Usuario;
@@ -40,7 +35,6 @@ public class ExibirImagem implements Command {
 		
 		switch (opcao) {
 		case "colecao":
-			System.out.println("IMG COleção");
 			Colecao colecao = new Colecao();
 			System.out.println("id: " + id);
 			colecao.setIdColecao(id);
@@ -49,7 +43,6 @@ public class ExibirImagem implements Command {
 			fin = colecao.getImagem();
 			break;
 		case "item":
-			System.out.println("IMG Item");
 			Item item = new Item();
 			System.out.println("id: " + id);
 			item.setIdItem(id);

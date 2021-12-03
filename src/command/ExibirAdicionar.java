@@ -7,17 +7,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
-import model.Categoria;
 import model.Colecao;
 import model.Item;
 import model.Usuario;
 import service.ColecaoService;
 import service.ItemService;
-import service.UsuarioService;
 
-public class ExibirEditar implements Command {
+public class ExibirAdicionar implements Command {
 
 	@Override
 	public void executar(HttpServletRequest request, HttpServletResponse response)
@@ -57,8 +54,6 @@ public class ExibirEditar implements Command {
 
 		HttpSession session = request.getSession();
 		session.setAttribute("usuario", user);
-		
-		RequestDispatcher view = null;
 
 		Colecao colecao = new Colecao();
 		colecao.setIdColecao(idColecao);
@@ -66,32 +61,14 @@ public class ExibirEditar implements Command {
 		colecao = colecaoService.buscar(colecao);
 		session.setAttribute("colecao", colecao);
 		
-		switch (opcao) {
-		case "colecao":
-			System.out.println("idColecao: " + id);
-			view = request.getRequestDispatcher("editColecao.jsp");
-			break;
-		case "item":
-			Item item = new Item();
-			item.setIdItem(id);
-			ItemService itemService = new ItemService();
-			item = itemService.buscar(item);
-			session.setAttribute("item", item);
-			view = request.getRequestDispatcher("editItem.jsp");
-			break;
-		case "categoria":
-			Categoria categoria = new Categoria();
-			categoria.setIdCategoria(id);
-			break;
-		default:
-			break;
-		}
+		Item item = new Item();
+		item.setIdItem(id);
+		ItemService itemService = new ItemService();
+		item = itemService.buscar(item);
+		session.setAttribute("item", item);
 		
-		
-		
-
-		
-		view.forward(request, response);
+		RequestDispatcher view = null;
+		view = request.getRequestDispatcher("addItem.jsp");
 
 	}
 

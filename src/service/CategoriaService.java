@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dao.categoriaDao;
 import model.Categoria;
+import model.Colecao;
 
 public class CategoriaService {
 	
@@ -29,13 +30,13 @@ public class CategoriaService {
 	}
 	
 	
-	public ArrayList<Categoria> buscarCategoria() {
-		return categoriad.buscarCategoria();
+	public ArrayList<Categoria> buscarCategoria(Colecao colecao) {
+		return categoriad.buscarCategoria(colecao);
 	}
 	
 	
-	public ArrayList<Categoria> buscarCategoria(String chave) {
-        return categoriad.buscarCategoria(chave);
+	public ArrayList<Categoria> buscarCategoria(Colecao colecao, String chave) {
+        return categoriad.buscarCategoria(colecao, chave);
     }
 	
 }

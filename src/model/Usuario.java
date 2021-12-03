@@ -3,11 +3,11 @@ package model;
 import java.io.InputStream;
 
 public class Usuario {
-	private int idUsuario;
-	private String usuario;
-	private String nome;
-	private String senha;
-	private InputStream foto;
+	private int idUsuario = 0;
+	private String usuario = "";
+	private String nome = "";
+	private String senha = "";
+	private InputStream foto = null;
 	
 	
 	public int getIdUsuario() {

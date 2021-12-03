@@ -1,3 +1,5 @@
+
+<%@page import="service.ColecaoService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,15 +27,81 @@
                     <h1>Coleção - ${colecao.nome}</h1>
                 </div>
                 <div class="espacamento"></div>
-                <div class="container">
+                <div class="container boxCat">
                     <form id="searchBox" class="searchBox" action="controller.do" method="post">
-                            <input class="inputText" type="search" name="chave" id="chave">
-                            <label class="btnSearch" for="search"></label>
-                            <input type="hidden" name="opcao" value="item">
-                            <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
-                            <input type="hidden" name="idColecao" value="${colecao.idColecao}">
-                        	<button id="search" type="submit" name="command" value="Listar"> Pesquisar </button>
-                    </form>
+                        <input class="inputText" type="search" name="chave" id="chave">
+                        <label class="btnSearch" for="search"></label>
+                        <input type="hidden" name="opcao" value="item">
+                        <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
+                        <input type="hidden" name="idColecao" value="${colecao.idColecao}">
+                        <button id="search" type="submit" name="command" value="Listar"> Pesquisar </button>
+                        <select class="categorias" name="categoria" id="categoria" form="searchBox">
+                            <option value="0">Nenhuma</option>
+                            <c:forEach var="categoria" items="${categorias}">
+                                <c:choose>
+								    <c:when test="${categoria.idCategoria == categoriaSelecionada.idCategoria}">
+                                   		<option value="${categoria.idCategoria}" selected>${categoria.nome}</option>
+								    </c:when>    
+								    <c:otherwise>
+                                   		<option value="${categoria.idCategoria}">${categoria.nome}</option>
+								    </c:otherwise>
+								</c:choose>
+                            </c:forEach>
+                        </select>
+                        <div class="container showAddCat">
+                            <img id="btnCat" src="imagens/btnAdd.png" alt="">
+                        </div>
+                	</form>
+                    <div class="back">
+                        <div class="popup">
+                            <div class="container row btnClose">
+								<p>Categoria</p>
+                                <button class="btn">X</button>
+                            </div>
+                            <div class="container row">
+                                <button class="btnOpcao selected" id="opcaoAdd">Nova</button>
+                                <button class="btnOpcao" id="opcaoEdit">Editar</button>
+                            </div>
+                            <div class="container boxAdd show">
+                                <form class="container" action="controller.do" method="post">
+                                	<div class="container">
+	                                    <label for="inputCategoria">Nome da Categoria</label>
+	                                    <input class="inputText" type="text" name="nome" id="inputCategoria">
+                                	</div>
+			                    	<div class="container">
+	                        			<input type="hidden" name="opcao" value="item">
+	                        			<input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
+	                        			<input type="hidden" name="idColecao" value="${colecao.idColecao}">
+				                        <button class="btnAddCat" type="submit" name="command" value=AddCategoria> Adicionar </button>
+			                    	</div>
+                                </form>
+                            </div>
+                            <div class="container boxEdit">
+                                <form class="container" action="controller.do" method="post">
+                                	<div class="container">
+								        <p>Selecionar Categoria</p>
+                                        <select class="categorias" name="categoria" id="categoria">
+                                            <option value="0">Nenhuma</option>
+                                            <c:forEach var="categoria" items="${categorias}">
+                                                <option value="${categoria.idCategoria}">${categoria.nome}</option>
+                                            </c:forEach>
+                                        </select>
+                                	</div>
+                                    <div class="container">
+	                                    <label for="inputCategoria">Nome da Categoria</label>
+	                                    <input class="inputText" type="text" name="nome" id="inputCategoria">
+                                	</div>
+                                    <div class="container row separaBtn">
+                                        <input type="hidden" name="opcao" value="item">
+                                        <input type="hidden" name="idUsuario" value="${usuario.idUsuario}">
+                                        <input type="hidden" name="idColecao" value="${colecao.idColecao}">
+                                        <button class="btn" type="submit" name="command" value="EditCategoria"> Salvar </button>
+                                        <button class="btn" type="submit" name="command" value="ExcluirCategoria"> Excluir </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </header>
             <div class="home">
@@ -41,7 +109,16 @@
                     <div class="container row usuario">
 	                	<a href="controller.do?command=ExibirPerfil&idUsuario=${usuario.idUsuario}&pagina=item&idColecao=${colecao.idColecao}">
 		                    <div class="container row usuario">
-		                        <img src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
+		                    	<div class="usuarioImg">
+			                    	<c:choose>
+									    <c:when test="${usuario.foto != null}">
+		                        			<img src="controller.do?command=ExibirImagem&opcao=usuario&id=${usuario.idUsuario}" alt="">
+									    </c:when>    
+									    <c:otherwise>
+		                        			<img src="imagens/usuario.jpg" alt="">
+									    </c:otherwise>
+									</c:choose>
+		                    	</div>
 		                        <p>${usuario.nome}</p>
 		                    </div>                	
 	                	</a>
@@ -140,5 +217,6 @@
         </div>
 		<script src="js/script.js"></script>
 		<script src="js/showDescricao.js"></script>
+		<script src="js/showCategoria.js"></script>
     </body>
 </html>

@@ -3,6 +3,7 @@ package service;
 import java.util.ArrayList;
 
 import dao.itemDao;
+import model.Categoria;
 import model.Colecao;
 import model.Item;
 
@@ -29,13 +30,13 @@ public class ItemService {
 	}
 	
 	
-	public ArrayList<Item> buscarItem(Colecao colecao) {
-		return itemd.buscarItem(colecao);
+	public ArrayList<Item> buscarItem(Colecao colecao, Categoria categoria) {
+		return itemd.buscarItem(colecao, categoria);
 	}
 	
 	
-	public ArrayList<Item> buscarItem(Colecao colecao, String chave) {
-        return itemd.buscarItem(colecao, chave);
+	public ArrayList<Item> buscarItem(Colecao colecao, Categoria categoria, String chave) {
+        return itemd.buscarItem(colecao, categoria, chave);
     }
 	
 }
